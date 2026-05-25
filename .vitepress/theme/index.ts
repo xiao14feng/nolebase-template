@@ -151,11 +151,11 @@ const ExtendedTheme: Theme = {
     
     // Obtain configuration from: https://giscus.app/
     giscusTalk({
-      repo: 'Jackiexiao/nolebase-template',
-      repoId: 'R_kgDOL5WHsg',
-      category: 'Announcements', // default: `General`
-      categoryId: 'DIC_kwDOL5WHss4CfTYs',
-      mapping: 'url', // default: `pathname`
+      repo: 'xiao14feng/nolebase-template',
+      repoId: 'R_kgDOSm_lug',
+      category: 'Ideas', // default: `General`
+      categoryId: 'DIC_kwDOSm_lus4C9yHP',
+      mapping: 'pathname', // default: `pathname`
       inputPosition: 'top', // default: `top`
       lang: 'zh-CN', // default: `zh-CN`
       // i18n setting (Note: This configuration will override the default language set by lang)
