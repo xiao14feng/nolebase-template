@@ -31,6 +31,10 @@ export default defineConfig({
   ignoreDeadLinks: true,
   head: [
     ['meta', {
+      name: 'referrer',
+      content: 'no-referrer',
+    }],
+    ['meta', {
       name: 'theme-color',
       content: '#ffffff',
     }],

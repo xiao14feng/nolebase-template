@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notion 风格主页预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background: #fff;
+    color: #37352f;
+    line-height: 1.5;
+  }
+
+  .page {
+    width: 100%;
+    padding: 3rem 3rem 4rem;
+  }
+
+  /* 页头 */
+  .header {
+    margin-bottom: 2rem;
+  }
+  .page-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .page-desc {
+    font-size: 1rem;
+    color: #787774;
+    margin: 0;
+  }
+
+  /* 块 */
+  .block {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0.4rem;
+    margin-bottom: 0.3rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .block:hover {
+    background: rgba(55, 53, 47, 0.03);
+  }
+  .bicon {
+    width: 1.5rem;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 1.1rem;
+    padding-top: 0.1rem;
+  }
+  .bcontent {
+    flex: 1;
+    min-width: 0;
+  }
+  .blabel {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #787774;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* 链接卡片 */
+  .link-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .link-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgba(55, 53, 47, 0.13);
+    border-radius: 4px;
+    text-decoration: none;
+    color: #37352f;
+    font-size: 0.9rem;
+    transition: background 0.15s;
+  }
+  .link-card:hover {
+    background: rgba(55, 53, 47, 0.06);
+  }
+
+  /* 笔记行 */
+  .note-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(55, 53, 47, 0.06);
+    text-decoration: none;
+    color: #37352f;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+  .note-row:last-child { border-bottom: none; }
+  .note-row:hover {
+    background: rgba(55, 53, 47, 0.04);
+  }
+  .bullet { color: #787774; font-weight: bold; flex-shrink: 0; }
+  .note-title { flex: 1; font-size: 0.9rem; }
+  .note-date { font-size: 0.8rem; color: #787774; flex-shrink: 0; }
+
+  /* 统计 */
+  .stats-row { display: flex; gap: 1.5rem; }
+  .stat-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .stat-value { font-size: 1.5rem; font-weight: 600; line-height: 1.2; }
+  .stat-label { font-size: 0.8rem; color: #787774; }
+
+  /* 创作者 */
+  .creator-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0;
+  }
+  .creator-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8d6fc7, #4fc4d8);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.85rem; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .creator-info { display: flex; flex-direction: column; gap: 0.05rem; }
+  .creator-info strong { font-size: 0.9rem; font-weight: 600; }
+  .creator-desc { font-size: 0.8rem; color: #787774; }
+
+  /* 页脚 */
+  .footer {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .divider-line {
+    display: block;
+    color: #e9e9e7;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .footer-text {
+    font-size: 0.8rem;
+    color: #787774;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 页头 -->
+  <div class="header">
+    <div class="page-icon">🍁</div>
+    <h1 class="page-title">晓枫</h1>
+    <p class="page-desc">记录回忆，知识和畅想的地方</p>
+  </div>
+
+  <!-- 快捷链接 -->
+  <div class="block">
+    <div class="bicon">🔗</div>
+    <div class="bcontent">
+      <span class="blabel">快速访问</span>
+      <div class="link-grid">
+        <a class="link-card" href="#"><span>📖</span> 开始阅读</a>
+        <a class="link-card" href="#"><span>⭐</span> GitHub</a>
+        <a class="link-card" href="#"><span>💬</span> Discord</a>
+        <a class="link-card" href="#"><span>🔍</span> 搜索文档</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近更新 -->
+  <div class="block">
+    <div class="bicon">📌</div>
+    <div class="bcontent">
+      <span class="blabel">最近更新</span>
+      <a class="note-row" href="#">
+        <span class="bullet">•</span>
+        <span class="note-title">与芒格的对话 · 关于方法、行动与认可</span>
+        <span class="note-date">2026-05-25</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 概览 -->
+  <div class="block">
+    <div class="bicon">📊</div>
+    <div class="bcontent">
+      <span class="blabel">概览</span>
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-value">1</span>
+          <span class="stat-label">笔记</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">1</span>
+          <span class="stat-label">创作者</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">CC</span>
+          <span class="stat-label">许可</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 创作者 -->
+  <div class="block">
+    <div class="bicon">👤</div>
+    <div class="bcontent">
+      <span class="blabel">创作者</span>
+      <div class="creator-row">
+        <div class="creator-avatar">晓</div>
+        <div class="creator-info">
+          <strong>晓枫</strong>
+          <span class="creator-desc">个人知识库创作者</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer">
+    <span class="divider-line">————————————</span>
+    <p class="footer-text">
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color:#37352f;">CC BY-SA 4.0</a>
+      © 2022-PRESENT 晓枫 的创作者们
+    </p>
+  </div>
+
+</div>
+</body>
+</html>

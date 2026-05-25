@@ -40,6 +40,7 @@ import DocFooter from './components/DocFooter.vue'
 import HomePage from './components/HomePage.vue'
 import Share from './components/Share.vue'
 import TocList from './components/TocList.vue'
+import NotionHomePage from './components/NotionHomePage.vue'
 import WikiHomePage from './components/WikiHomePage.vue'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css'
@@ -90,6 +91,7 @@ const ExtendedTheme: Theme = {
     app.component('Share', Share)
     app.component('TocList', TocList)
     app.component('AppContainer', AppContainer)
+    app.component('NotionHomePage', NotionHomePage)
     app.component('WikiHomePage', WikiHomePage)
     app.component('NolebaseUnlazyImg', NolebaseUnlazyImg)
 

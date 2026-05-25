@@ -28,10 +28,16 @@ export interface Tag {
   count: number
 }
 
+export interface PagePropertiesData {
+  wordsCount: number
+  readingTime: number
+}
+
 export interface DocsMetadata {
   docs: Doc[]
   tags: Tag[]
   sidebar: ArticleTree[]
+  pageProperties?: Record<string, PagePropertiesData>
 }
 
 export interface DocsTagsAlias {

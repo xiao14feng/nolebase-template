@@ -71,3 +71,10 @@ uno.config.ts            # UnoCSS config with presetUno, presetAttributify, pres
 - **Giscus comments**: Configured in `.vitepress/theme/index.ts` — search for `giscusTalk` to change repo, category, theme
 - **Home page**: Edit `index.md` for hero section and features
 - **Obsidian integration**: `.obsidian/` config files included; wikilinks disabled in favor of relative path markdown links for compatibility
+
+## Patches
+
+The `@nolebase/vitepress-plugin-page-properties` plugin is patched in `scripts/patch-page-properties.js` to:
+1. Handle Chinese-named markdown files in dev mode (decodeURI + clean URL to .md resolution)
+2. Fall back to precomputed word count/reading time data from `docsMetadata.json` at build time
+The `postinstall` script in `package.json` automatically reapplies this patch after every `pnpm install`.

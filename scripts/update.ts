@@ -9,7 +9,7 @@ import Git from 'simple-git'
 import matter from 'gray-matter'
 import uniq from 'lodash/uniq'
 import TagsAlias from '../.vitepress/docsTagsAlias.json'
-import type { ArticleTree, DocsMetadata, DocsTagsAlias, Tag } from './types/metadata'
+import type { ArticleTree, DocsMetadata, DocsTagsAlias, PagePropertiesData, Tag } from './types/metadata'
 
 const dir = './'
 const target = '笔记/'
@@ -64,7 +64,7 @@ async function addRouteItem(indexes: ArticleTree[], path: string, upgradeIndex =
     index: title,
     text: title,
     link: `/${path.slice(0, suffixIndex)}`,
-    lastUpdated: +await git.raw(['log', '-1', '--format=%at', path]) * 1000,
+    lastUpdated: (+await git.raw(['log', '-1', '--format=%at', path]) || Math.floor(fs.statSync(path).mtimeMs / 1000)) * 1000,
   }
   const linkItems = item.link.split('/')
   linkItems.shift()
@@ -192,6 +192,30 @@ function sidebarSort(sidebar: ArticleTree[], folderTop: boolean = true) {
  */
 function isTagAliasOfTag(srcTag: string, targetTag: string) {
   return srcTag === targetTag || srcTag.toUpperCase() === targetTag.toUpperCase()
+}
+
+// Word count and reading time computation (syncs with @nolebase/vitepress-plugin-page-properties)
+const languageHandlers = {
+  japanese: { regex: /\p{Script=Hiragana}|\p{Script=Katakana}/gu, wordsPerMinute: 400 },
+  chinese: { regex: /\p{Script=Han}/gu, wordsPerMinute: 300 },
+  latinCyrillic: { regex: /[\p{Script=Latin}\p{Script=Cyrillic}\p{Mark}\p{Punctuation}\p{Number}'\b]+/gu, wordsPerMinute: 160 },
+}
+
+function countWordsByLanguage(content: string) {
+  return Object.keys(languageHandlers).reduce((accumulator, language) => {
+    const match = content.match(languageHandlers[language].regex)
+    accumulator[language] = match ? match.length : 0
+    return accumulator
+  }, {} as Record<string, number>)
+}
+
+function calculateWordsCountAndReadingTime(content: string): PagePropertiesData {
+  const wordsCounts = countWordsByLanguage(content)
+  const totalWords = Object.values(wordsCounts).reduce((sum, count) => sum + count, 0)
+  const totalMinutes = Object.entries(wordsCounts).reduce((sum, [language, count]) => {
+    return sum + count / languageHandlers[language].wordsPerMinute
+  }, 0)
+  return { wordsCount: totalWords, readingTime: Math.ceil(totalMinutes) }
 }
 
 function findTagAlias(tag: string, docsMetadata: DocsMetadata, aliasMapping: DocsTagsAlias[]) {
@@ -355,6 +379,16 @@ async function run() {
 
   await processSidebar(docs, docsMetadata)
   console.log('processed sidebar in', `${(new Date()).getTime() - now}ms`)
+  now = (new Date()).getTime()
+
+  // Compute word counts and reading times for all docs
+  docsMetadata.pageProperties = {}
+  for (const doc of docs) {
+    const content = fs.readFileSync(doc, 'utf-8')
+    const parsed = matter(content)
+    docsMetadata.pageProperties[doc] = calculateWordsCountAndReadingTime(parsed.content)
+  }
+  console.log('computed page properties in', `${(new Date()).getTime() - now}ms`)
   now = (new Date()).getTime()
 
   docsMetadata.sidebar = sidebarSort(docsMetadata.sidebar, folderTop)
